@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>78 to 52</title>
+<link rel="stylesheet" href="practice.css">
+</head>
+<body>
+
+<nav class="topMenu"> <a href="index.html">Home</a> <a href="guide.html">Guide</a> </nav>
+
+<!-- Card container -->
+<div id="container1" class="container vertical">
+    <div class="card">
+    <div class="card-inner">
+      <img id="cardAContainer" class="card-back" src="" alt="">
+      <img class="card-front" src="resources/images/card-back.png" alt="">
+    </div>
+    </div>
+
+    <div class="card">
+    <div class="card-inner">
+      <img id="cardBContainer" class="card-back" src="" alt="">
+      <img class="card-front" src="resources/images/card-back.png" alt="">
+    </div>
+    </div>
+
+    <div class="card">
+    <div class="card-inner">
+      <img id="cardCContainer" class="card-back" src="" alt="">
+      <img class="card-front" src="resources/images/card-back.png" alt="">
+    </div>
+    </div>
+</div>
+
+<!-- Tarot container -->
+<div id="container2" class="container horizontal tarot">
+  <div id="tarotImageContainer"></div>
+  <div class="container vertical">
+    <h1 id="tarotName"></h1>
+    <h1 id="tarotDescription"></h1>
+  </div>
+</div>
+
+<!-- Buttons -->
+<div id="buttoncontainer" class="container vertical">
+<button id="showBtn">Show answer</button>
+<br><br>
+<button id="againBtn">Again</button>
+</div>
+
+<script src="js/classes.js"></script> 
+<script src="js/csvreader.js"></script> 
+<script src="js/logic.js"></script> 
+<script src="js/ui.js"></script>
+<script> window.onload = async () => { await displayNewQuestion(); }; </script>
+
+<script id="cards" type="text/csv">
+id,rank,suit,color
+1,A,diamonds,red
+2,2,diamonds,red
+3,3,diamonds,red
+4,4,diamonds,red
+5,5,diamonds,red
+6,6,diamonds,red
+7,7,diamonds,red
+8,8,diamonds,red
+9,9,diamonds,red
+10,10,diamonds,red
+11,J,diamonds,red
+12,Q,diamonds,red
+13,K,diamonds,red
+14,A,hearts,red
+15,2,hearts,red
+16,3,hearts,red
+17,4,hearts,red
+18,5,hearts,red
+19,6,hearts,red
+20,7,hearts,red
+21,8,hearts,red
+22,9,hearts,red
+23,10,hearts,red
+24,J,hearts,red
+25,Q,hearts,red
+26,K,hearts,red
+27,A,clubs,black
+28,2,clubs,black
+29,3,clubs,black
+30,4,clubs,black
+31,5,clubs,black
+32,6,clubs,black
+33,7,clubs,black
+34,8,clubs,black
+35,9,clubs,black
+36,10,clubs,black
+37,J,clubs,black
+38,Q,clubs,black
+39,K,clubs,black
+40,A,spades,black
+41,2,spades,black
+42,3,spades,black
+43,4,spades,black
+44,5,spades,black
+45,6,spades,black
+46,7,spades,black
+47,8,spades,black
+48,9,spades,black
+49,10,spades,black
+50,J,spades,black
+51,Q,spades,black
+52,K,spades,black
+</script>
+<script id="tarots" type="text/csv">
+id,name,description
+Ac,Ace of cups,New love; emotions; creativity; intuition; joy,
+2c,Two of cups,Partnership; unity; love; attraction; harmony,
+3c,Three of cups,Celebration; friendship; community; joy; harmony,
+4c,Four of cups,Contemplation; reevaluation; apathy; introspection,
+5c,Five of cups,Loss; grief; disappointment; regret; focusing on the negative,
+6c,Six of cups,Nostalgia; childhood; innocence; memories; generosity,
+7c,Seven of cups,Choices; fantasy; wishful thinking; opportunities,
+8c,Eight of cups,Leaving behind; searching for truth; withdrawal,
+9c,Nine of cups,Contentment; fulfillment; wishes coming true,
+10c,Ten of cups,Happiness; family; alignment; harmony; love,
+Pc,Page of cups,Creative beginnings; intuition; exploration; romance,
+Jc,Knight of cups,Romance; charm; idealism; following one’s heart,
+Qc,Queen of cups,Compassion; nurturing; intuition; emotional balance,
+Kc,King of cups,Emotional maturity; diplomacy; balance; control,
+Aw,Ace of wands,Inspiration; new beginnings; creativity; potential,
+2w,Two of wands,Planning; discovery; potential; foresight,
+3w,Three of wands,Expansion; foresight; progress; exploration,
+4w,Four of wands,Celebration; harmony; home; stability,
+5w,Five of wands,Conflict; competition; rivalry; challenges,
+6w,Six of wands,Victory; success; public recognition; confidence,
+7w,Seven of wands,Defense; perseverance; maintaining boundaries,
+8w,Eight of wands,Speed; rapid action; movement; progress,
+9w,Nine of wands,Resilience; perseverance; defensiveness,
+10w,Ten of wands,Burden; responsibility; hard work; stress,
+Pw,Page of wands,Exploration; discovery; enthusiasm; adventure,
+Jw,Knight of wands,Passion; energy; adventure; impulsiveness,
+Qw,Queen of wands,Confidence; determination; vibrancy; warmth,
+Kw,King of wands,Leadership; vision; ambition; taking charge,
+As,Ace of swords,Clarity; truth; new ideas; intellectual insight,
+2s,Two of swords,Indecision; choices; stalemate; avoidance,
+3s,Three of swords,Heartbreak; sorrow; emotional pain,
+4s,Four of swords,Rest; recovery; contemplation; retreat,
+5s,Five of swords,Conflict; betrayal; competition; tension,
+6s,Six of swords,Transition; moving on; healing; travel,
+7s,Seven of swords,Deception; betrayal; cunning; strategy,
+8s,Eight of swords,Restriction; confusion; feeling trapped; helplessness; need for self-liberation,
+9s,Nine of swords,Anxiety; worry; nightmares; fear; mental anguish,
+10s,Ten of swords,Betrayal; endings; loss; despair,
+Ps,Page of swords,Curiosity; new ideas; energy; communication,
+Js,Knight of swords,Action; ambition; impulsiveness; clear thinking,
+Qs,Queen of swords,Independence; perception; clarity; intellect,
+Ks,King of swords,Authority; intellectual power; truth,
+Ap,Ace of pentacles,Prosperity; new opportunities; manifestation,
+2p,Two of pentacles,Balance; adaptability; time management,
+3p,Three of pentacles,Teamwork; collaboration; skill development,
+4p,Four of pentacles,Stability; security; control; possession,
+5p,Five of pentacles,Financial loss; hardship; isolation,
+6p,Six of pentacles,Generosity; charity; balance; giving and receiving,
+7p,Seven of pentacles,Patience; assessment; growth; long-term success,
+8p,Eight of pentacles,Skill development; dedication; craftsmanship,
+9p,Nine of pentacles,Abundance; self-sufficiency; financial independence,
+10p,Ten of pentacles,Wealth; family; legacy; stability,
+Pp,Page of pentacles,New beginnings; ambition; focus on material goals,
+Jp,Knight of pentacles,Hard work; perseverance; routine; loyalty,
+Qp,Queen of pentacles,Nurturing; practicality; financial independence,
+Kp,King of pentacles,Wealth; stability; business acumen; success,
+fool,The Fool,New beginnings; adventure; spontaneity,
+magician,The Magician,Manifestation; resourcefulness; power; creativity,
+priestess,The High Priestess,Intuition; mystery; subconscious; wisdom,
+empress,The Empress,Abundance; femininity; beauty; nurturing,
+emporer,The Emporer,Authority; stability; structure; control,
+hierophant,The Hierophant,Tradition; conformity; spiritual guidance,
+lovers,The Lovers,Love; harmony; partnership; choices,
+chariot,The Chariot,Determination; control; willpower; victory,
+strength,Strength,Courage; patience; compassion; inner strength,
+hermit,The Hermit,Introspection; solitude; guidance; reflection,
+wheel,The Wheel of Fortune,Change; cycles; destiny; luck,
+justice,Justice,Fairness; truth; law; accountability,
+hanged,The Hanged Man,Sacrifice; release; new perspective; waiting,
+death,Death,Transformation; endings; new beginnings,
+temperance,Temperance,Balance; harmony; moderation; patience,
+devil,The Devil,Addiction; temptation; materialism; bondage,
+tower,The Tower,Upheaval; chaos; revelation; sudden change,
+star,The Star,Hope; inspiration; renewal; serenity,
+moon,The Moon,Illusion; intuition; dreams; the subconscious,
+sun,The Sun,Joy; success; vitality; positivity,
+judgement,Judgement,Reflection; reckoning; awakening; renewal,
+world,The World,Completion; fulfillment; wholeness; achievement,
+Ac_r,Ace of cups reversed,Blocked feelings; emotional instability; repressed,
+2c_r,Two of cups reversed,Imbalance; broken communication; separation,
+3c_r,Three of cups reversed,Overindulgence; gossip; broken friendships,
+4c_r,Four of cups reversed,Missed opportunities; dissatisfaction; boredom,
+5c_r,Five of cups reversed,Moving on; acceptance; forgiveness,
+6c_r,Six of cups reversed,Stuck in the past; naivety; unrealistic expectations,
+7c_r,Seven of cups reversed,Confusion; lack of clarity; illusions,
+8c_r,Eight of cups reversed,Fear of change; avoidance of emotional issues,
+9c_r,Nine of cups reversed,Discontent; superficiality; overindulgence,
+10c_r,Ten of cups reversed,Broken family; disharmony; disconnection,
+Pc_r,Page of cups reversed,Emotional immaturity; unrealistic expectations,
+Jc_r,Knight of cups reversed,Unrealistic; moody; overemotional,
+Qc_r,Queen of cups reversed,Emotional overwhelm; smothering; insecurity,
+Kc_r,King of cups reversed,Manipulation; emotional coldness; lack of depth,
+Aw_r,Ace of wands reversed,Lack of direction; delays; pessimism,
+2w_r,Two of wands reversed,Fear of the unknown; lack of planning; indecision,
+3w_r,Three of wands reversed,Delays; lack of foresight; short-term thinking,
+4w_r,Four of wands reversed,Instability; breakdown of communication,
+5w_r,Five of wands reversed,Avoiding conflict; weakness; lack of ambition,
+6w_r,Six of wands reversed,Delayed success; lack of confidence; fall from grace,
+7w_r,Seven of wands reversed,Overwhelm; giving up; lack of conviction,
+8w_r,Eight of wands reversed,Delays; frustration; lack of direction,
+9w_r,Nine of wands reversed,Exhaustion; giving up; feeling overwhelmed,
+10w_r,Ten of wands reversed,Release; delegating; avoiding burnout,
+Pw_r,Page of wands reversed,Lack of direction; paranoia; unreliability,
+Jw_r,Knight of wands reversed,Recklessness; frustration; scattered energy,
+Qw_r,Queen of wands reversed,Self-doubt; jealousy; overbearing,
+Kw_r,King of wands reversed,Impulsiveness; ruthless; not leading well,
+As_r,Ace of swords reversed,Confusion; chaos; lack of clarity,
+2s_r,Two of swords reversed,Lack of choices; inability to see the truth,
+3s_r,Three of swords reversed,Healing; recovery; acceptance,
+4s_r,Four of swords reversed,Burnout; stagnation; restlessness,
+5s_r,Five of swords reversed,Resolution; peace; walking away,
+6s_r,Six of swords reversed,Stagnation; inability to cope; resistance to change,
+7s_r,Seven of swords reversed,Confession; honesty; accountability,
+8s_r,Eight of swords reversed,Breaking free from limitations; self-empowerment; escaping self-imposed traps,
+9s_r,Nine of swords reversed,Hope; relief from anxiety; overcoming fears,
+10s_r,Ten of swords reversed,Recovery; regeneration; resilience,
+Ps_r,Page of swords reversed,Gossip; deceit; lack of tact,
+Js_r,Knight of swords reversed,Hasty decisions; conflicts; scattered thoughts,
+Qs_r,Queen of swords reversed,Coldness; bitterness; isolation,
+Ks_r,King of swords reversed,Manipulation; cruelty; misuse of power,
+Ap_r,Ace of pentacles reversed,Lost opportunity; lack of planning,
+2p_r,Two of pentacles reversed,Overcommitment; imbalance; juggling too much,
+3p_r,Three of pentacles reversed,Poor teamwork; lack of progress,
+4p_r,Four of pentacles reversed,Greed; stagnation; fear of loss,
+5p_r,Five of pentacles reversed,Recovery; improvement; newfound support,
+6p_r,Six of pentacles reversed,Selfishness; inequality; lack of generosity,
+7p_r,Seven of pentacles reversed,Lack of progress; impatience; poor planning,
+8p_r,Eight of pentacles reversed,Lack of focus; ineptitude; boredom,
+9p_r,Nine of pentacles reversed,Financial loss; dependency on others,
+10p_r,Ten of pentacles reversed,Inheritance problems; family conflicts,
+Pp_r,Page of pentacles reversed,Lack of progress; apathy; distraction,
+Jp_r,Knight of pentacles reversed,Stubbornness; boredom; stagnation,
+Qp_r,Queen of pentacles reversed,Smothering; neglect; insecurity,
+Kp_r,King of pentacles reversed,Misuse of power; corruption; materialism,
+fool_r,The Fool reversed,Recklessness; foolishness; risk-taking,
+magician_r,The Magician reversed,Manipulation; trickery; untapped potential,
+priestess_r,The High Priestess reversed,Secrets; disconnectedness; lack of intuition,
+empress_r,The Empress reversed,Dependence; lack of growth; emptiness,
+emporer_r,The Emporer reversed,Tyranny; rigidity; lack of discipline,
+hierophant_r,The Hierophant reversed,Rebellion; unconventionality; disconnection from tradition,
+lovers_r,The Lovers reversed,Disharmony; imbalance; miscommunication,
+chariot_r,The Chariot reversed,Lack of direction; defeat; aggression,
+strength_r,Strength reversed,Self-doubt; weakness; insecurity,
+hermit_r,The Hermit reversed,Isolation; loneliness; withdrawal,
+wheel_r,The Wheel of Fortune reversed,Bad luck; unforeseen events; misfortune,
+justice_r,Justice reversed,Dishonesty; lack of accountability; bias,
+hanged_r,The Hanged Man reversed,Stagnation; refusal to let go; selfishness,
+death_r,Death reversed,Resistance to change; fear of the unknown,
+temperance_r,Temperance reversed,Overindulgence; discord; lack of balance,
+devil_r,The Devil reversed,Freedom; release; reclaiming power,
+tower_r,The Tower reversed,Avoiding disaster; fear of change,
+star_r,The Star reversed,Despair; lack of faith; discouragement,
+moon_r,The Moon reversed,Deception; confusion; fear of the unknown,
+sun_r,The Sun reversed,Sadness; negativity; lack of clarity,
+judgement_r,Judgement reversed,Self-doubt; poor judgment; lack of accountability,
+world_r,The World reversed,Incompletion; lack of closure; stagnation,
+</script>
+</body>
+</html>

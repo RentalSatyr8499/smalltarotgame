@@ -1,14 +1,23 @@
-function displayQuestion(question) {
-    document.getElementById("cardAContainer").innerHTML = `
-        <img src="resources/images/cards/${question.cardA.id}.png" alt="Card A">
-    `;
-    document.getElementById("cardBContainer").innerHTML = `
-        <img src="resources/images/cards/${question.cardB.id}.png" alt="Card B">
-    `;
-    document.getElementById("cardCContainer").innerHTML = `
-        <img src="resources/images/cards/${question.cardC.id}.png" alt="Card C">
-    `;
+async function displayNewQuestion(question) {
+    document.getElementById("container2").style.display = "none";
+    question = await generateQuestion();
+    populateCards(question);
+    populateTarot(question);
+    document.getElementById("container1").style.display = "flex";
+    
+    flipCard(document.getElementById("cardAContainer").closest(".card")); flipCard(document.getElementById("cardBContainer").closest(".card")); flipCard(document.getElementById("cardCContainer").closest(".card"));
+}
+function populateCards(question){
+    document.getElementById("cardAContainer").src =
+        `resources/images/cards/${question.cardA.id}.png`;
 
+    document.getElementById("cardBContainer").src =
+        `resources/images/cards/${question.cardB.id}.png`;
+
+    document.getElementById("cardCContainer").src =
+        `resources/images/cards/${question.cardC.id}.png`;
+}
+function populateTarot(question){
     tarotImage = "resources/images/tarot/";
     if (question.tarot.reversed) {
         tarotImage += question.tarot.id.slice(0, -2);
@@ -27,6 +36,15 @@ function displayQuestion(question) {
     document.getElementById("tarotName").innerText = question.tarot.name;
     document.getElementById("tarotDescription").innerText = question.tarot.description;
 }
+function flipCard(card) {
+  card.classList.remove("flip");
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      card.classList.add("flip");
+    });
+  });
+}
+
 
 // Hook up buttons
 document.getElementById("showBtn").addEventListener("click", async () => {
@@ -42,8 +60,5 @@ document.getElementById("showBtn").addEventListener("click", async () => {
 })
 
 document.getElementById("againBtn").addEventListener("click", async () => {
-  document.getElementById("container2").style.display = "none";
-  document.getElementById("container1").style.display = "flex";
-  q = await generateQuestion();
-  displayQuestion(q);
+    await displayNewQuestion();
 });

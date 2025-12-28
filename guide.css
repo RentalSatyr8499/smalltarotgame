@@ -3,11 +3,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
 }
 
 .centeredImage img {
-  max-width: 90%;
+  max-width: 50%;
   height: auto;
 }
 
