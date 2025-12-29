@@ -4,7 +4,6 @@ async function displayNewQuestion(question) {
     question = await generateQuestion();
     populateTarot(question);
 
-    // Wait for all card images (front + back)
     await Promise.all([
         populateCards(question),
         Promise.all(Array.from(document.querySelectorAll(".playing-front")).map(waitForImage))
@@ -104,7 +103,7 @@ document.getElementById("againBtn").addEventListener("click", async () => {
 
 document.getElementById("toggleCheat").addEventListener("click", async () => {
     const cheatSheet = document.getElementById("cheatsheet");
-    if (cheatSheet.style.display === "none") {
+    if ((cheatSheet.style.display === "none")|| (cheatSheet.style.display === "")){
         cheatSheet.style.display = "flex";
     } else {
         cheatSheet.style.display = "none";
