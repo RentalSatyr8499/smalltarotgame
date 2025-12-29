@@ -1,21 +1,36 @@
 async function displayNewQuestion(question) {
     document.getElementById("container2").style.display = "none";
+
     question = await generateQuestion();
-    populateCards(question);
     populateTarot(question);
+
+    // Wait for all card images (front + back)
+    await Promise.all([
+        populateCards(question),
+        Promise.all(Array.from(document.querySelectorAll(".playing-front")).map(waitForImage))
+    ]);
+
     document.getElementById("container1").style.display = "flex";
-    
-    flipCard(document.getElementById("cardAContainer").closest(".card")); flipCard(document.getElementById("cardBContainer").closest(".card")); flipCard(document.getElementById("cardCContainer").closest(".card"));
+
+    flipCard("cardAContainer");
+    flipCard("cardBContainer");
+    flipCard("cardCContainer");
 }
-function populateCards(question){
-    document.getElementById("cardAContainer").src =
-        `resources/images/cards/${question.cardA.id}.png`;
 
-    document.getElementById("cardBContainer").src =
-        `resources/images/cards/${question.cardB.id}.png`;
+function populateCards(question) {
+    const a = document.getElementById("cardAContainer");
+    const b = document.getElementById("cardBContainer");
+    const c = document.getElementById("cardCContainer");
 
-    document.getElementById("cardCContainer").src =
-        `resources/images/cards/${question.cardC.id}.png`;
+    a.src = `resources/images/cards/${question.cardA.id}.png`;
+    b.src = `resources/images/cards/${question.cardB.id}.png`;
+    c.src = `resources/images/cards/${question.cardC.id}.png`;
+
+    return Promise.all([
+        waitForImage(a),
+        waitForImage(b),
+        waitForImage(c)
+    ]);
 }
 function populateTarot(question){
     tarotImage = "resources/images/tarot/";
@@ -25,24 +40,44 @@ function populateTarot(question){
         tarotImage += question.tarot.id;
     }
     tarotImage += ".png";
-    document.getElementById("tarotImageContainer").innerHTML = `
-    <img 
-        src="${tarotImage}" 
-        alt="Tarot Card"
-        class="${question.tarot.reversed ? 'reversed' : ''}"
-    >
-    `;
+    document.getElementById("tarotImage").src = tarotImage;
+    document.getElementById("tarotImageContainer").classList.toggle("reversed", question.tarot.reversed);
 
     document.getElementById("tarotName").innerText = question.tarot.name;
-    document.getElementById("tarotDescription").innerText = question.tarot.description;
-}
-function flipCard(card) {
-  card.classList.remove("flip");
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      card.classList.add("flip");
+
+    let items = question.tarot.description.split(";").map(item => item.trim());
+    if (items.length > 0) {
+        items[0] = items[0].charAt(0).toLowerCase() + items[0].slice(1); // decapitalize first letter
+    }
+
+    let bulletList = '<ul>';
+    items.forEach(item => {
+        bulletList += `<li>${item}</li>`;
     });
-  });
+    bulletList += '</ul>';
+
+    document.getElementById("tarotDescription").innerHTML = bulletList;
+}
+function flipCard(containerName) {
+    const el = document.getElementById(containerName); 
+    const card = el.closest(".card"); 
+    
+    card.classList.remove("flip"); 
+    requestAnimationFrame(() => { 
+        requestAnimationFrame(() => { 
+            card.classList.add("flip"); 
+        }); 
+    }); 
+}
+function waitForImage(img) {
+    return new Promise(resolve => {
+        if (img.complete) {
+            resolve();
+        } else {
+            img.onload = resolve;
+            img.onerror = resolve; 
+        }
+    });
 }
 
 
@@ -53,9 +88,13 @@ document.getElementById("showBtn").addEventListener("click", async () => {
     if (questionContainer.style.display == "flex") {
         questionContainer.style.display = "none";
         answerContainer.style.display = "flex";
+        flipCard("tarotImageContainer");
     } else {
         questionContainer.style.display = "flex";
         answerContainer.style.display = "none";
+        flipCard("cardAContainer");
+        flipCard("cardBContainer");
+        flipCard("cardCContainer");
     }
 })
 

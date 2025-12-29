@@ -17,32 +17,37 @@
     <div class="card">
     <div class="card-inner">
       <img id="cardAContainer" class="card-back" src="" alt="">
-      <img class="card-front" src="resources/images/card-back.png" alt="">
+      <img class="card-front playing-front" src="resources/images/card-back.png" alt="">
     </div>
     </div>
 
     <div class="card">
     <div class="card-inner">
       <img id="cardBContainer" class="card-back" src="" alt="">
-      <img class="card-front" src="resources/images/card-back.png" alt="">
+      <img class="card-front playing-front" src="resources/images/card-back.png" alt="">
     </div>
     </div>
 
     <div class="card">
     <div class="card-inner">
       <img id="cardCContainer" class="card-back" src="" alt="">
-      <img class="card-front" src="resources/images/card-back.png" alt="">
+      <img class="card-front playing-front" src="resources/images/card-back.png" alt="">
     </div>
     </div>
 </div>
 
 <!-- Tarot container -->
 <div id="container2" class="container horizontal tarot">
-  <div id="tarotImageContainer"></div>
-  <div class="container vertical">
-    <h1 id="tarotName"></h1>
-    <h1 id="tarotDescription"></h1>
-  </div>
+    <div class="card" id="tarotImageContainer">
+    <div class="card-inner">
+      <img id="tarotImage" class="card-back" src="" alt="">
+      <img class="card-front" src="resources/images/tarot-back.png" alt="">
+    </div>
+    </div>
+    <div class="container vertical" id="tarotInfo">
+      <h1 id="tarotName"></h1>
+      <div id="tarotDescription"></div>
+    </div>
 </div>
 
 <!-- Buttons -->
@@ -53,7 +58,7 @@
 </div>
 
 <div class="container vertical">
-  <h3>Do you know what Rider-Waite-Smith tarot this 3-card column maps to?</h3>
+  <h2>Do you know what Rider-Waite-Smith tarot this 3-card column maps to?</h2>
   <p id="description">This practice tool is not meant to be used as an actual tarot reading. I think accurate tarot readings from from allowing your intuition to pull you towards one card or another, but this tool simply uses a random number generator to pick a card for you. So please if you'd actually like to do a tarot reading, use a physical deck. After all, after learning this technique, you only need a 52-card deck of playing cards to do a reading!</p>
   <button id="toggleCheat">Toggle cheatsheet</button>
   <div id="cheatsheet" class="container horizontal">
